@@ -3,9 +3,10 @@ import Card from "./Card";
 import ExpenseFilter from "./ExpenseFilter";
 import { useState } from "react";
 import ExpenseList from "./ExpenseList";
+import ExpensesChart from "./ExpensesChart";
 
 function Expenses(props) {
-  const [filteredYear, setFilteredYear] = useState("2020");
+  const [filteredYear, setFilteredYear] = useState("2022");
 
   const expenses = props.expenses.filter((expense) => {
     return expense.date.getFullYear().toString() === filteredYear;
@@ -13,10 +14,8 @@ function Expenses(props) {
 
   function derivePickedYear(pickedYear) {
     setFilteredYear(pickedYear);
-    console.log(pickedYear);
   }
 
- 
 
   return (
     <div>
@@ -25,6 +24,7 @@ function Expenses(props) {
           selected={filteredYear}
           derivePickedYear={derivePickedYear}
         />
+        <ExpensesChart expenses={expenses} />
         <ExpenseList expenses={expenses} />
       </Card>
     </div>
