@@ -1,12 +1,14 @@
+import { useState } from "react";
 import Expenses from "./components/Expenses"
+import NewExpense from "./components/NewExpense/NewExpense";
 
-function App() {
-  const expenses = [
+
+const DUMMY_DATA = [
     {
       id: "e1",
       title: "Toilet Paper",
       amount: 94.12,
-      date: new Date(2020, 7, 14),
+      date: new Date(2022, 7, 14),
     },
     { id: "e2", title: "New TV", amount: 799.49, date: new Date(2021, 2, 12) },
     {
@@ -22,9 +24,26 @@ function App() {
       date: new Date(2021, 5, 12),
     },
   ];
+
+function App() {
+  const [expenses, setExpenses] = useState(DUMMY_DATA)
+  
+
+  function deriveExpense(expense) {
+    console.log(expense);
+    setExpenses(prevData => {
+      return [expense, ...prevData]
+    })
+
+    expenses.filter(expense => {
+      return expense.date === 2020;
+    });
+    console.log(expenses);
+  }
   return <div>
-    <Expenses expenses={expenses} />
-  </div>;
-}
+    <NewExpense onDeriveExpense={deriveExpense}></NewExpense>
+        <Expenses expenses={expenses} />
+      </div>;
+    }
 
 export default App;
